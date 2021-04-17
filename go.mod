@@ -1,3 +1,3 @@
-module github.com/SilkageNet/wanmei
+module github.com/SilkageNet/wmocr
 
 go 1.16
