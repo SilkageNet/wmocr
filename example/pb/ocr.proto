@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "github.com/SilkageNet/wmocr/pb";
+
+message Request {
+  bytes  data = 1;
+}
+
+message Response{
+  string ret = 1;
+}
+
+service OCR{
+  rpc Recognize(Request)returns(Response);
+}

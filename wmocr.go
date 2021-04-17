@@ -1,7 +1,8 @@
-package wanmei
+package wmocr
 
 import (
 	"errors"
+	"fmt"
 	"syscall"
 	"unsafe"
 )
@@ -16,22 +17,26 @@ type WmOcr struct {
 	id  uintptr
 }
 
-func NewWmOcr(fns ...OptionFn) (*WmOcr, error) {
-	var opt = &option{DLLPath: DefaultDLLPath}
+func NewWmOcr(dllPath, datPath, datPassword string, fns ...OptionFn) (*WmOcr, error) {
+	var opt = &option{}
 	for _, fn := range fns {
 		fn(opt)
 	}
-	var dll = syscall.NewLazyDLL(opt.DLLPath)
+	var dll = syscall.NewLazyDLL(dllPath)
 	var err = dll.Load()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("load dll err: %v", err)
 	}
 	var ocr = &WmOcr{dll: dll}
-	ocr.id, err = ocr.setupDatFile(opt.DatPath, opt.DatPassword)
+	ocr.id, err = ocr.setupDatFile(datPath, datPassword)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("setup dat file err: %v", err)
 	}
-	return ocr, ocr.setupOption(opt)
+	err = ocr.setupOption(opt)
+	if err != nil {
+		return nil, fmt.Errorf("setup option err: %v", err)
+	}
+	return ocr, err
 }
 
 func (w *WmOcr) setupDatFile(datPath, password string) (uintptr, error) {
@@ -40,9 +45,9 @@ func (w *WmOcr) setupDatFile(datPath, password string) (uintptr, error) {
 	var passBuf = append([]byte(password), 0)
 	var id, _, err = fn.Call(uintptr(unsafe.Pointer(&pathBuf[0])), uintptr(unsafe.Pointer(&passBuf[0])))
 	if err != nil {
-		return 0, err
+		//log.Println(err)
 	}
-	if id == -1 {
+	if int(id) == -1 {
 		return 0, ErrWMLoadDatFile
 	}
 	return id, nil
@@ -105,7 +110,7 @@ func (w *WmOcr) RecognizeFile(imgPath string) (string, error) {
 		return "", err
 	}
 	if ret != 0 {
-		return "", ErrWMRecognize
+		//log.Println(err)
 	}
 	var l int
 	for i, v := range retBuf {
@@ -124,9 +129,9 @@ func (w *WmOcr) Recognize(buff []byte) (string, error) {
 	var ret, _, err = fn.Call(w.id, uintptr(unsafe.Pointer(&buff[0])), uintptr(len(buff)),
 		uintptr(unsafe.Pointer(&retBuf[0])))
 	if err != nil {
-		return "", err
+		//log.Println(err)
 	}
-	if ret != 0 {
+	if ret == 0 {
 		return "", ErrWMRecognize
 	}
 	var l int

@@ -1,8 +1,4 @@
-package wanmei
-
-const (
-	DefaultDLLPath = "WmCode.dll"
-)
+package wmocr
 
 //RetType recognize result type.
 type RetType byte
@@ -41,9 +37,6 @@ const (
 )
 
 type option struct {
-	DLLPath          string
-	DatPath          string
-	DatPassword      string
 	RetType          RetType
 	SegmentationType SegmentationType
 	RecognizeType    RecognizeType
@@ -54,19 +47,6 @@ type option struct {
 }
 
 type OptionFn func(o *option)
-
-func WithDLLPath(path string) OptionFn {
-	return func(o *option) {
-		o.DLLPath = path
-	}
-}
-
-func WithDat(datPath, password string) OptionFn {
-	return func(o *option) {
-		o.DatPath = datPath
-		o.DatPassword = password
-	}
-}
 
 func WithRetType(rType RetType) OptionFn {
 	return func(o *option) {
