@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OCRClient interface {
-	Recognize(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Recognize(ctx context.Context, in *RecognizeReq, opts ...grpc.CallOption) (*RecognizeRsp, error)
 }
 
 type oCRClient struct {
@@ -29,8 +29,8 @@ func NewOCRClient(cc grpc.ClientConnInterface) OCRClient {
 	return &oCRClient{cc}
 }
 
-func (c *oCRClient) Recognize(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *oCRClient) Recognize(ctx context.Context, in *RecognizeReq, opts ...grpc.CallOption) (*RecognizeRsp, error) {
+	out := new(RecognizeRsp)
 	err := c.cc.Invoke(ctx, "/OCR/Recognize", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (c *oCRClient) Recognize(ctx context.Context, in *Request, opts ...grpc.Cal
 // All implementations must embed UnimplementedOCRServer
 // for forward compatibility
 type OCRServer interface {
-	Recognize(context.Context, *Request) (*Response, error)
+	Recognize(context.Context, *RecognizeReq) (*RecognizeRsp, error)
 	mustEmbedUnimplementedOCRServer()
 }
 
@@ -50,7 +50,7 @@ type OCRServer interface {
 type UnimplementedOCRServer struct {
 }
 
-func (UnimplementedOCRServer) Recognize(context.Context, *Request) (*Response, error) {
+func (UnimplementedOCRServer) Recognize(context.Context, *RecognizeReq) (*RecognizeRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Recognize not implemented")
 }
 func (UnimplementedOCRServer) mustEmbedUnimplementedOCRServer() {}
@@ -67,7 +67,7 @@ func RegisterOCRServer(s grpc.ServiceRegistrar, srv OCRServer) {
 }
 
 func _OCR_Recognize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+	in := new(RecognizeReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func _OCR_Recognize_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/OCR/Recognize",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OCRServer).Recognize(ctx, req.(*Request))
+		return srv.(OCRServer).Recognize(ctx, req.(*RecognizeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

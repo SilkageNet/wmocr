@@ -2,14 +2,14 @@ syntax = "proto3";
 
 option go_package = "github.com/SilkageNet/wmocr/pb";
 
-message Request {
+message RecognizeReq {
   bytes  data = 1;
 }
 
-message Response{
+message RecognizeRsp{
   string ret = 1;
 }
 
 service OCR{
-  rpc Recognize(Request)returns(Response);
+  rpc Recognize(RecognizeReq)returns(RecognizeRsp);
 }

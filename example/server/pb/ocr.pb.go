@@ -25,7 +25,7 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type Request struct {
+type RecognizeReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -33,8 +33,8 @@ type Request struct {
 	Data []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
-func (x *Request) Reset() {
-	*x = Request{}
+func (x *RecognizeReq) Reset() {
+	*x = RecognizeReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_ocr_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -42,13 +42,13 @@ func (x *Request) Reset() {
 	}
 }
 
-func (x *Request) String() string {
+func (x *RecognizeReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Request) ProtoMessage() {}
+func (*RecognizeReq) ProtoMessage() {}
 
-func (x *Request) ProtoReflect() protoreflect.Message {
+func (x *RecognizeReq) ProtoReflect() protoreflect.Message {
 	mi := &file_ocr_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -60,19 +60,19 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Request.ProtoReflect.Descriptor instead.
-func (*Request) Descriptor() ([]byte, []int) {
+// Deprecated: Use RecognizeReq.ProtoReflect.Descriptor instead.
+func (*RecognizeReq) Descriptor() ([]byte, []int) {
 	return file_ocr_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Request) GetData() []byte {
+func (x *RecognizeReq) GetData() []byte {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-type Response struct {
+type RecognizeRsp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -80,8 +80,8 @@ type Response struct {
 	Ret string `protobuf:"bytes,1,opt,name=ret,proto3" json:"ret,omitempty"`
 }
 
-func (x *Response) Reset() {
-	*x = Response{}
+func (x *RecognizeRsp) Reset() {
+	*x = RecognizeRsp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_ocr_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -89,13 +89,13 @@ func (x *Response) Reset() {
 	}
 }
 
-func (x *Response) String() string {
+func (x *RecognizeRsp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Response) ProtoMessage() {}
+func (*RecognizeRsp) ProtoMessage() {}
 
-func (x *Response) ProtoReflect() protoreflect.Message {
+func (x *RecognizeRsp) ProtoReflect() protoreflect.Message {
 	mi := &file_ocr_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -107,12 +107,12 @@ func (x *Response) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Response.ProtoReflect.Descriptor instead.
-func (*Response) Descriptor() ([]byte, []int) {
+// Deprecated: Use RecognizeRsp.ProtoReflect.Descriptor instead.
+func (*RecognizeRsp) Descriptor() ([]byte, []int) {
 	return file_ocr_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Response) GetRet() string {
+func (x *RecognizeRsp) GetRet() string {
 	if x != nil {
 		return x.Ret
 	}
@@ -122,16 +122,17 @@ func (x *Response) GetRet() string {
 var File_ocr_proto protoreflect.FileDescriptor
 
 var file_ocr_proto_rawDesc = []byte{
-	0x0a, 0x09, 0x6f, 0x63, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x1d, 0x0a, 0x07, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x1c, 0x0a, 0x08, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x72, 0x65, 0x74, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x03, 0x72, 0x65, 0x74, 0x32, 0x27, 0x0a, 0x03, 0x4f, 0x43, 0x52, 0x12,
-	0x20, 0x0a, 0x09, 0x52, 0x65, 0x63, 0x6f, 0x67, 0x6e, 0x69, 0x7a, 0x65, 0x12, 0x08, 0x2e, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x09, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x42, 0x20, 0x5a, 0x1e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x53, 0x69, 0x6c, 0x6b, 0x61, 0x67, 0x65, 0x4e, 0x65, 0x74, 0x2f, 0x77, 0x6d, 0x6f, 0x63, 0x72,
-	0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x0a, 0x09, 0x6f, 0x63, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x22, 0x0a, 0x0c, 0x52,
+	0x65, 0x63, 0x6f, 0x67, 0x6e, 0x69, 0x7a, 0x65, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22,
+	0x20, 0x0a, 0x0c, 0x52, 0x65, 0x63, 0x6f, 0x67, 0x6e, 0x69, 0x7a, 0x65, 0x52, 0x73, 0x70, 0x12,
+	0x10, 0x0a, 0x03, 0x72, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x72, 0x65,
+	0x74, 0x32, 0x30, 0x0a, 0x03, 0x4f, 0x43, 0x52, 0x12, 0x29, 0x0a, 0x09, 0x52, 0x65, 0x63, 0x6f,
+	0x67, 0x6e, 0x69, 0x7a, 0x65, 0x12, 0x0d, 0x2e, 0x52, 0x65, 0x63, 0x6f, 0x67, 0x6e, 0x69, 0x7a,
+	0x65, 0x52, 0x65, 0x71, 0x1a, 0x0d, 0x2e, 0x52, 0x65, 0x63, 0x6f, 0x67, 0x6e, 0x69, 0x7a, 0x65,
+	0x52, 0x73, 0x70, 0x42, 0x20, 0x5a, 0x1e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x53, 0x69, 0x6c, 0x6b, 0x61, 0x67, 0x65, 0x4e, 0x65, 0x74, 0x2f, 0x77, 0x6d, 0x6f,
+	0x63, 0x72, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -148,12 +149,12 @@ func file_ocr_proto_rawDescGZIP() []byte {
 
 var file_ocr_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_ocr_proto_goTypes = []interface{}{
-	(*Request)(nil),  // 0: Request
-	(*Response)(nil), // 1: Response
+	(*RecognizeReq)(nil), // 0: RecognizeReq
+	(*RecognizeRsp)(nil), // 1: RecognizeRsp
 }
 var file_ocr_proto_depIdxs = []int32{
-	0, // 0: OCR.Recognize:input_type -> Request
-	1, // 1: OCR.Recognize:output_type -> Response
+	0, // 0: OCR.Recognize:input_type -> RecognizeReq
+	1, // 1: OCR.Recognize:output_type -> RecognizeRsp
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -168,7 +169,7 @@ func file_ocr_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_ocr_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Request); i {
+			switch v := v.(*RecognizeReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -180,7 +181,7 @@ func file_ocr_proto_init() {
 			}
 		}
 		file_ocr_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Response); i {
+			switch v := v.(*RecognizeRsp); i {
 			case 0:
 				return &v.state
 			case 1:

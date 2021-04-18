@@ -28,7 +28,7 @@ func (s *Server) Serve(addr string) error {
 	return rpcSrv.Serve(ln)
 }
 
-func (s *Server) Recognize(_ context.Context, req *pb.Request) (*pb.Response, error) {
+func (s *Server) Recognize(_ context.Context, req *pb.RecognizeReq) (*pb.RecognizeRsp, error) {
 	var ret, err = s.ocr.Recognize(req.Data)
 	if err != nil {
 		return nil, err
@@ -36,5 +36,5 @@ func (s *Server) Recognize(_ context.Context, req *pb.Request) (*pb.Response, er
 
 	log.Println("New recognize result: ", ret)
 
-	return &pb.Response{Ret: ret}, nil
+	return &pb.RecognizeRsp{Ret: ret}, nil
 }
