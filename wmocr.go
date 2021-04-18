@@ -119,7 +119,9 @@ func (w *WmOcr) RecognizeFile(imgPath string) (string, error) {
 			break
 		}
 	}
-	retBuf = retBuf[:l]
+	if l > 0 {
+		retBuf = retBuf[:l-1]
+	}
 	return string(retBuf), nil
 }
 
@@ -141,6 +143,8 @@ func (w *WmOcr) Recognize(buff []byte) (string, error) {
 			break
 		}
 	}
-	retBuf = retBuf[:l]
+	if l > 0 {
+		retBuf = retBuf[:l-1]
+	}
 	return string(retBuf), nil
 }

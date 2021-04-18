@@ -1,10 +1,11 @@
-package main
+package server
 
 import (
 	"context"
 	"github.com/SilkageNet/wmocr"
-	"github.com/SilkageNet/wmocr/example/pb"
+	"github.com/SilkageNet/wmocr/example/server/pb"
 	"google.golang.org/grpc"
+	"log"
 	"net"
 )
 
@@ -32,5 +33,8 @@ func (s *Server) Recognize(_ context.Context, req *pb.Request) (*pb.Response, er
 	if err != nil {
 		return nil, err
 	}
+
+	log.Println("New recognize result: ", ret)
+
 	return &pb.Response{Ret: ret}, nil
 }

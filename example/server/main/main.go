@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/SilkageNet/wmocr"
+	"github.com/SilkageNet/wmocr/example/server"
 	"github.com/urfave/cli/v2"
 	"os"
 )
@@ -29,6 +30,5 @@ func action(c *cli.Context) error {
 	if err != nil {
 		return fmt.Errorf("init.wm.ocr.err:%s", err.Error())
 	}
-	var server = NewServer(ocr)
-	return server.Serve(c.String("addr"))
+	return server.NewServer(ocr).Serve(c.String("addr"))
 }
