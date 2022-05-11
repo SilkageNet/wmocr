@@ -1,3 +1,6 @@
+//go:build wiondows
+// +build wiondows
+
 package wmocr
 
 import (
